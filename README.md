@@ -58,10 +58,16 @@ Esta es la API para la aplicación de generación de energía. Permite gestionar
         'PORT': '3306',
     }
     }
-7.**Crear Migraciones y Migrar**
+
+8.**Acceder a generacion_energia_monitoring/generacion_energia_monitoring**
+
+> cd generacion-energia-monitoring
+
+8.**Crear Migraciones y Migrar**
 
 > python manage.py makemigrations
-python manage.py migrate
+
+> python manage.py migrate
 
 ## Ejecución del Proyecto
 
@@ -70,7 +76,9 @@ python manage.py migrate
 > python manage.py runserver
 
 2.**Acceder a las API'S para Explorar y Probar**
+
 [-->Swagger<--](http://127.0.0.1:8000/api/swagger/)
+
 [-->Redoc<--](http://127.0.0.1:8000/api/redoc/)
 
 **Diagrama entidad-relación**
