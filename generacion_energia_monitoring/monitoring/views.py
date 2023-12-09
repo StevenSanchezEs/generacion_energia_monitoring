@@ -78,4 +78,10 @@ class DispositivoViewSet(viewsets.ModelViewSet):
         operation_description='Obtiene todos los dispositivos que coincidan con el id que se pasa por parametro, por ejemplo: con un id = 1 se obtienen todos los del tipo aerogenerador.',
     )
     
-    
+    @action(detail=False, methods=['GET'])
+    def obtener_por_tipodispositivo(self, request, *args, **kwargs):
+        # Implementa la lógica para obtener dispositivos por tipo de dispositivo
+        tipo_dispositivo_id = self.request.query_params.get('tipo_dispositivo', None)
+        dispositivos = Dispositivo.objects.filter(tipo_dispositivo__id=tipo_dispositivo_id)
+        serializer = DispositivoSerializer(dispositivos, many=True)
+        return Response(serializer.data)
