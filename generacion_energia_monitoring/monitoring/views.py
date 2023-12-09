@@ -197,3 +197,54 @@ class LecturaViewSet(viewsets.ModelViewSet):
         respuesta = [{'idDispositivo': item['dispositivo'], 'Energia': item['energia_total']} for item in resultado]
 
         return Response({'energiaTotal': respuesta})
+    
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('dispositivo', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='Id del dispositivo por ejemplo: 1'),
+        ],
+        responses={200: openapi.Response(
+                description="Ok",
+                examples={
+                        "application/json": [
+                            {
+                                "id": 1,
+                                "potencia_actual": 30.0,
+                                "timestamp": "2023-12-08T16:33:45.528435-06:00",
+                                "dispositivo": 1
+                            },
+                            {
+                                "id": 2,
+                                "potencia_actual": 40.0,
+                                "timestamp": "2023-12-08T17:04:55.762953-06:00",
+                                "dispositivo": 1
+                            },
+                            {
+                                "id": 4,
+                                "potencia_actual": 30.0,
+                                "timestamp": "2023-12-08T22:09:02.881799-06:00",
+                                "dispositivo": 1
+                            },
+                            {
+                                "id": 9,
+                                "potencia_actual": 10.0,
+                                "timestamp": "2023-12-08T23:21:12.043548-06:00",
+                                "dispositivo": 1
+                            },
+                            {
+                                "id": 10,
+                                "potencia_actual": 20.0,
+                                "timestamp": "2023-12-08T23:27:13.317827-06:00",
+                                "dispositivo": 1
+                            },
+                            {
+                                "id": 11,
+                                "potencia_actual": 10.0,
+                                "timestamp": "2023-12-08T23:39:21.296333-06:00",
+                                "dispositivo": 1
+                            }
+                        ]
+                    }
+            ), 400: 'Parámetros inválidos'},
+        #operation_id='obtener_lecturas_por_tipo',
+        operation_description='Obtiene todos las lecturas relacionadas con el id del dispositivo.',
+    )
