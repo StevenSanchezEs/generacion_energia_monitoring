@@ -107,3 +107,31 @@ class LecturaViewSet(viewsets.ModelViewSet):
         serializer.save()
 
         return Response(serializer.data)
+    
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('tipo_dispositivo', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='Id del tipo de dispositivo por ejemplo: "id": 3, "nombre": turbina hidroeléctrica'),
+        ],
+        responses={200: openapi.Response(
+                description="Ok",
+                examples={
+                        "application/json": [
+                            {
+                                "id": 3,
+                                "potencia_actual": 10.0,
+                                "timestamp": "2023-12-08T18:09:51.235659-06:00",
+                                "dispositivo": 2
+                            }
+                            ,
+                            {
+                                "id": 12,
+                                "potencia_actual": 10.0,
+                                "timestamp": "2023-12-09T01:56:14.153269-06:00",
+                                "dispositivo": 2
+                            }
+                        ]
+                    }
+            ), 400: 'Parámetros inválidos'},
+        #operation_id='obtener_lecturas_por_tipo',
+        operation_description='Obtiene todos las lecturas por tipo de dispositivo.',
+    )
