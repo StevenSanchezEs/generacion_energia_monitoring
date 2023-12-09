@@ -248,3 +248,10 @@ class LecturaViewSet(viewsets.ModelViewSet):
         #operation_id='obtener_lecturas_por_tipo',
         operation_description='Obtiene todos las lecturas relacionadas con el id del dispositivo.',
     )
+    
+    @action(detail=False, methods=['GET'])
+    def obtener_por_id_dispositivo(self, request, *args, **kwargs):
+        id_dispositivo = self.request.query_params.get('dispositivo', None)
+        lecturas = Lectura.objects.filter(dispositivo__id=id_dispositivo)
+        serializer = LecturaSerializer(lecturas, many=True)
+        return Response(serializer.data)
