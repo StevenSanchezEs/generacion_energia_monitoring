@@ -3,6 +3,22 @@ from django.urls import path, include
 from drf_yasg.views import get_schema_view
 from rest_framework.routers import DefaultRouter
 from .views import TipoDispositivoViewSet, StatusDispositivoViewSet, DispositivoViewSet, LecturaViewSet, MantenimientoViewSet
+from django.contrib import admin
+from rest_framework import permissions
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Generación de Energía API",
+        default_version='v1',
+        description="API para el monitoreo de generación de energía",
+        terms_of_service="https://www.tusitio.com/terms/",
+        contact=openapi.Contact(email="steven.nathan.sanchez@outlook.com"),
+        #license=openapi.License(name="Tu Licencia"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 
 # Crea un enrutador y registra los viewsets
 router = DefaultRouter()
