@@ -24,3 +24,11 @@ class Dispositivo(models.Model):
 
     def __str__(self):
         return self.nombre
+    
+class Lectura(models.Model):
+    dispositivo = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
+    potencia_actual = models.FloatField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Lectura {self.id} - {self.dispositivo.nombre} - {self.timestamp}"
