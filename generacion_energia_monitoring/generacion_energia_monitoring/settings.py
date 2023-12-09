@@ -39,6 +39,20 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Token': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    },
+    'USE_SESSION_AUTH': False,  # Configúralo según tus necesidades
+    'api_version': '0.1',
+    'enabled_methods': ['get', 'post', 'put', 'patch', 'delete'],
+    'DOC_EXPANSION': 'none',
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
