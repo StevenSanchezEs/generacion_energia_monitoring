@@ -135,3 +135,14 @@ class LecturaViewSet(viewsets.ModelViewSet):
         #operation_id='obtener_lecturas_por_tipo',
         operation_description='Obtiene todos las lecturas por tipo de dispositivo.',
     )
+    
+    @action(detail=False, methods=['GET'])
+    def obtener_por_tipo_dispositivo(self, request, *args, **kwargs):
+        tipo_dispositivo_id = self.request.query_params.get('tipo_dispositivo', None)
+
+        # Filtra las lecturas por tipo de dispositivo
+        lecturas = Lectura.objects.filter(dispositivo__tipo_dispositivo__id=tipo_dispositivo_id)
+
+        serializer = LecturaSerializer(lecturas, many=True)
+    
+        return Response(serializer.data)
