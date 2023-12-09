@@ -16,3 +16,8 @@ class DispositivoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dispositivo
         fields = '__all__'
+
+class LecturaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lectura
+        fields = '__all__'
