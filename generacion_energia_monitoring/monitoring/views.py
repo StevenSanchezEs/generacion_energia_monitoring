@@ -172,3 +172,28 @@ class LecturaViewSet(viewsets.ModelViewSet):
         #operation_id='obtener_lecturas_por_tipo',
         operation_description='Obtiene la suma de todas las lecturas por cada dispositivo conforme al rango de fechas.',
     )
+    
+    @action(detail=False, methods=['get'])
+    def obtener_energia_total(self, request):
+        # Obtener parámetros de consulta
+        fecha_inicio_str = request.query_params.get('fecha_inicio', None)
+        fecha_fin_str = request.query_params.get('fecha_fin', None)
+
+        # Convertir cadenas de fecha a objetos datetime
+        fecha_inicio = datetime.strptime(fecha_inicio_str, "%Y-%m-%dT%H:%M:%S.%fZ") if fecha_inicio_str else None
+        fecha_fin = datetime.strptime(fecha_fin_str, "%Y-%m-%dT%H:%M:%S.%fZ") if fecha_fin_str else None
+
+        # Filtrar lecturas por rango de tiempo
+        lecturas_filtradas = Lectura.objects.all()
+        if fecha_inicio:
+            lecturas_filtradas = lecturas_filtradas.filter(timestamp__gte=fecha_inicio)
+        if fecha_fin:
+            lecturas_filtradas = lecturas_filtradas.filter(timestamp__lte=fecha_fin)
+
+        # Calcular la suma de potencia_actual agrupada por dispositivo
+        resultado = lecturas_filtradas.values('dispositivo').annotate(energia_total=Sum('potencia_actual'))
+
+        # Formatear el resultado como se solicitó
+        respuesta = [{'idDispositivo': item['dispositivo'], 'Energia': item['energia_total']} for item in resultado]
+
+        return Response({'energiaTotal': respuesta})
