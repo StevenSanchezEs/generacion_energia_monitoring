@@ -21,3 +21,18 @@ class LecturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lectura
         fields = '__all__'
+    
+    def validate(self, data):
+        # Verifica si la clave 'dispositivo' está presente en data
+        dispositivo = data.get('dispositivo')
+
+        if dispositivo:
+            # Verifica si el dispositivo está en mantenimiento
+            if dispositivo.status_dispositivo.descripcion == "En mantenimiento":
+                raise serializers.ValidationError("No se puede realizar este registro ya que el dispositivo se encuentra en mantenimiento")
+
+        # Verifica si la potencia es negativa
+        if data.get('potencia_actual', 0) < 0:
+            raise serializers.ValidationError("El valor de la potencia no debe ser negativo")
+
+        return data
