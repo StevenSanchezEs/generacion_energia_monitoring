@@ -91,3 +91,19 @@ class DispositivoViewSet(viewsets.ModelViewSet):
 class LecturaViewSet(viewsets.ModelViewSet):
     queryset = Lectura.objects.all()
     serializer_class = LecturaSerializer
+    
+    def perform_create(self, serializer):
+        # Obtiene el dispositivo asociado a la lectura
+        dispositivo = serializer.validated_data['dispositivo']
+
+        # Actualiza la potencia y la fecha de actualización del dispositivo
+        dispositivo.potencia_actual = serializer.validated_data['potencia_actual']
+        dispositivo.timestamp = serializer.validated_data.get('timestamp')  # Ajusta aquí
+
+        # Guarda el dispositivo
+        dispositivo.save()
+
+        # Llama al método create del serializador para guardar la lectura
+        serializer.save()
+
+        return Response(serializer.data)
