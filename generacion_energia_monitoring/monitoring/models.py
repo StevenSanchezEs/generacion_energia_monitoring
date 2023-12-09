@@ -32,3 +32,10 @@ class Lectura(models.Model):
 
     def __str__(self):
         return f"Lectura {self.id} - {self.dispositivo.nombre} - {self.timestamp}"
+    
+class Mantenimiento(models.Model):
+    dispositivo = models.ForeignKey(Dispositivo, on_delete=models.CASCADE)
+    fecha_ingreso_mantenimiento = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Mantenimiento {self.id} - {self.dispositivo.nombre} - {self.fecha_ingreso_mantenimiento}"
