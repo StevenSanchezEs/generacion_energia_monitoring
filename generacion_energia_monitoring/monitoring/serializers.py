@@ -36,3 +36,8 @@ class LecturaSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("El valor de la potencia no debe ser negativo")
 
         return data
+    
+class MantenimientoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mantenimiento
+        fields = '__all__'
