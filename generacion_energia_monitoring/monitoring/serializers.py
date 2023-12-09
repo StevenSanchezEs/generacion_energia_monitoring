@@ -11,3 +11,8 @@ class StatusDispositivoSerializer(serializers.ModelSerializer):
     class Meta:
         model = StatusDispositivo
         fields = '__all__'
+        
+class DispositivoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Dispositivo
+        fields = '__all__'
