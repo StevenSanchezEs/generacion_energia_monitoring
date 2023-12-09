@@ -6,3 +6,8 @@ class TipoDispositivoSerializer(serializers.ModelSerializer):
     class Meta:
         model = TipoDispositivo
         fields = '__all__'
+
+class StatusDispositivoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StatusDispositivo
+        fields = '__all__'
