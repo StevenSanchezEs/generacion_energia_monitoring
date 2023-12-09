@@ -54,4 +54,28 @@ class DispositivoViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data)
     
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('tipo_dispositivo', in_=openapi.IN_QUERY, type=openapi.TYPE_INTEGER, description='Id del tipo de dispositivo por ejemplo: "id": 1, "nombre": aerogenerador'),
+        ],
+        responses={200: openapi.Response(
+                description="Ok",
+                examples={
+                    "application/json": [
+                        {
+                            "id": 1,
+                            "nombre": "Generador CDMX",
+                            "fecha_alta": "2023-12-08T16:32:25.358812-06:00",
+                            "fecha_actualizacion": "2023-12-09T02:23:25.474365-06:00",
+                            "potencia_actual": 20.0,
+                            "tipo_dispositivo": 1,
+                            "status_dispositivo": 2
+                        }
+                    ]
+                }
+            ), 400: 'Parámetros inválidos'},
+        #operation_id='obtener_lecturas_por_tipo',
+        operation_description='Obtiene todos los dispositivos que coincidan con el id que se pasa por parametro, por ejemplo: con un id = 1 se obtienen todos los del tipo aerogenerador.',
+    )
+    
     
