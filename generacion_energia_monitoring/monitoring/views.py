@@ -146,3 +146,29 @@ class LecturaViewSet(viewsets.ModelViewSet):
         serializer = LecturaSerializer(lecturas, many=True)
     
         return Response(serializer.data)
+    
+    @swagger_auto_schema(
+        manual_parameters=[
+            openapi.Parameter('fecha_inicio', in_=openapi.IN_QUERY, type=openapi.TYPE_OBJECT, description='Fecha de inicio en formato YYYY-MM-DDTHH:MM:SS.SSSZ'),
+            openapi.Parameter('fecha_fin', in_=openapi.IN_QUERY, type=openapi.TYPE_OBJECT, description='Fecha de fin en formato YYYY-MM-DDTHH:MM:SS.SSSZ'),
+        ],
+        responses={200: openapi.Response(
+                description="Ok",
+                examples={
+                    "application/json": {
+                    "energiaTotal": [
+                        {
+                            "idDispositivo": 1,
+                            "Energia": 140.0
+                        },
+                        {
+                            "idDispositivo": 2,
+                            "Energia": 10.0
+                        }
+                    ]
+                }
+                }
+            ), 400: 'Parámetros inválidos'},
+        #operation_id='obtener_lecturas_por_tipo',
+        operation_description='Obtiene la suma de todas las lecturas por cada dispositivo conforme al rango de fechas.',
+    )
