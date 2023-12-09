@@ -22,11 +22,9 @@ Esta es la API para la aplicación de generación de energía. Permite gestionar
 
 > python -m venv env
 
-> source venv/bin/activate      # En sistemas basados en Unix 
+> source env/bin/activate      # En sistemas basados en Unix 
 
-> python -m venv env
-
-> .\venv\Scripts\activate       # En sistemas basados en Windows (PowerShell)
+> .\env\Scripts\activate       # En sistemas basados en Windows (PowerShell)
 
 4.**Instalar Dependencias:**
 
