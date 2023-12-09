@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from .models import TipoDispositivo, StatusDispositivo, Dispositivo, Lectura, Mantenimiento
 from .serializers import TipoDispositivoSerializer, StatusDispositivoSerializer, DispositivoSerializer, LecturaSerializer, MantenimientoSerializer
 
-# Create your views here.
+# Vistas
 
 class TipoDispositivoViewSet(viewsets.ModelViewSet):
     queryset = TipoDispositivo.objects.all()
@@ -80,7 +80,7 @@ class DispositivoViewSet(viewsets.ModelViewSet):
     
     @action(detail=False, methods=['GET'])
     def obtener_por_tipodispositivo(self, request, *args, **kwargs):
-        # Implementa la lógica para obtener dispositivos por tipo de dispositivo
+        # Obtiene dispositivos por tipo de dispositivo
         tipo_dispositivo_id = self.request.query_params.get('tipo_dispositivo', None)
         dispositivos = Dispositivo.objects.filter(tipo_dispositivo__id=tipo_dispositivo_id)
         serializer = DispositivoSerializer(dispositivos, many=True)
@@ -98,7 +98,7 @@ class LecturaViewSet(viewsets.ModelViewSet):
 
         # Actualiza la potencia y la fecha de actualización del dispositivo
         dispositivo.potencia_actual = serializer.validated_data['potencia_actual']
-        dispositivo.timestamp = serializer.validated_data.get('timestamp')  # Ajusta aquí
+        dispositivo.timestamp = serializer.validated_data.get('timestamp')
 
         # Guarda el dispositivo
         dispositivo.save()
@@ -179,7 +179,7 @@ class LecturaViewSet(viewsets.ModelViewSet):
         fecha_inicio_str = request.query_params.get('fecha_inicio', None)
         fecha_fin_str = request.query_params.get('fecha_fin', None)
 
-        # Convertir cadenas de fecha a objetos datetime
+        # Convierte cadenas de fecha a objetos datetime
         fecha_inicio = datetime.strptime(fecha_inicio_str, "%Y-%m-%dT%H:%M:%S.%fZ") if fecha_inicio_str else None
         fecha_fin = datetime.strptime(fecha_fin_str, "%Y-%m-%dT%H:%M:%S.%fZ") if fecha_fin_str else None
 
@@ -193,7 +193,7 @@ class LecturaViewSet(viewsets.ModelViewSet):
         # Calcular la suma de potencia_actual agrupada por dispositivo
         resultado = lecturas_filtradas.values('dispositivo').annotate(energia_total=Sum('potencia_actual'))
 
-        # Formatear el resultado como se solicitó
+        # Formatear el resultado
         respuesta = [{'idDispositivo': item['dispositivo'], 'Energia': item['energia_total']} for item in resultado]
 
         return Response({'energiaTotal': respuesta})
@@ -255,3 +255,7 @@ class LecturaViewSet(viewsets.ModelViewSet):
         lecturas = Lectura.objects.filter(dispositivo__id=id_dispositivo)
         serializer = LecturaSerializer(lecturas, many=True)
         return Response(serializer.data)
+    
+class MantenimientoViewSet(viewsets.ModelViewSet):
+    queryset = Mantenimiento.objects.all()
+    serializer_class = MantenimientoSerializer
