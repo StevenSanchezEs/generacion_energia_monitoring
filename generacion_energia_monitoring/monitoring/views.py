@@ -85,3 +85,9 @@ class DispositivoViewSet(viewsets.ModelViewSet):
         dispositivos = Dispositivo.objects.filter(tipo_dispositivo__id=tipo_dispositivo_id)
         serializer = DispositivoSerializer(dispositivos, many=True)
         return Response(serializer.data)
+    
+@authentication_classes([])  # Anula las clases de autenticación
+@permission_classes([])  # Anula las clases de permisos
+class LecturaViewSet(viewsets.ModelViewSet):
+    queryset = Lectura.objects.all()
+    serializer_class = LecturaSerializer
