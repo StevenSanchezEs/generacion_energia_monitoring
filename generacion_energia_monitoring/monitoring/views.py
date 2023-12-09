@@ -15,3 +15,7 @@ class TipoDispositivoViewSet(viewsets.ModelViewSet):
     queryset = TipoDispositivo.objects.all()
     serializer_class = TipoDispositivoSerializer
     
+class StatusDispositivoViewSet(viewsets.ModelViewSet):
+    queryset = StatusDispositivo.objects.all()
+    serializer_class = StatusDispositivoSerializer
+    
