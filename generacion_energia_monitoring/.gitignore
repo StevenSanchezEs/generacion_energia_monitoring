@@ -1,7 +1,0 @@
-# Ignorar entorno virtual
-venv/
-env/
-
-# Ignorar archivos temporales de Visual Studio Code
-.vscode/
-*.code-workspace
