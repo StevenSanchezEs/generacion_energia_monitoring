@@ -1,5 +1,5 @@
 # Usa la imagen oficial de Python 3.8 en Alpine
-FROM python:3.11.2-alpine
+FROM python:3.11.2
 
 # Establece el directorio de trabajo en el contenedor
 WORKDIR /app
@@ -7,9 +7,7 @@ WORKDIR /app
 # Copia el archivo requirements.txt e instala las dependencias
 COPY requirements.txt .
 
-RUN apk --no-cache add build-base \
-    && pip install --no-cache-dir -r requirements.txt \
-    && apk del build-base
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copia el resto de los archivos al contenedor
 COPY . .
