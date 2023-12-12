@@ -84,4 +84,7 @@ Esta es la API para la aplicación de generación de energía. Permite gestionar
 **Diagrama entidad-relación**
 [-->Descargar diagrama<--](https://1drv.ms/i/s!ArXfZ0krp14qoie0UKHmZdajbxcX?e=g4dGAq)
 
+**Imagen Docker para correr en un contenedor**
+[-->Repositorio Docker<--](https://hub.docker.com/r/stevensanchez/monitoring_energy)
+
 ¡Listo para comenzar con tu proyecto de generación de energía! ✨🚀
