@@ -22,6 +22,5 @@ ENV DB_PORT=port
 # Configura variables de entorno si es necesario
 #ENV DJANGO_SETTINGS_MODULE=myproject.settings
 
-# Ejecuta las migraciones y el servidor de desarrollo de Django
-CMD ["python", "manage.py", "migrate"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Usa un entrypoint para ejecutar migraciones y luego iniciar el servidor de desarrollo
+ENTRYPOINT ["sh", "-c", "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]
